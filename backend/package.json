@@ -1,0 +1,24 @@
+{
+  "name": "urlshortener",
+  "version": "1.0.0",
+  "description": "URL Shortener",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main?app.js",
+    "devStart": "nodemon main_app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jshint": "^2.13.1"
+  },
+  "devDependencies": {
+    "body-parser": "^1.7.0",
+    "express": "3.x",
+    "mysql": "*",
+    "nodemon": "^2.0.12",
+    "request": "*"
+  }
+}
