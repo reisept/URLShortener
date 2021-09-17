@@ -58,11 +58,15 @@ function generateHash(onSuccess, onError, retryCount, url, request, response, co
 
 //sends a error message back to the client
 function hashError(response, request, con, code) {
+    console.log("hashError");
+
     response.send(urlResult(null, false, code));
 }
 
 //Insert in the database the created short url
 function handleHash(hash, url, request, response, con) {
+    console.log("handleHash");
+
     con.query(
         cons.add_query
             .replace("{URL}", con.escape(url))
@@ -89,7 +93,7 @@ function urlResult(hash, result, statusCode) {
 
 //This method redirects to that URL if it exists
 var getUrl = function (request, response, short_url) {
-    console.log("getUrl: " + short_url);
+  console.log("getUrl");
 
     pool.getConnection(function (err, con) {
         // check for errors in getting the connection
@@ -120,7 +124,15 @@ var getUrl = function (request, response, short_url) {
 
 //This function adds attempts to add an URL to the database.
 var addUrl = function (request, response, url, vanity) {
+  console.log("addUrl: url="+url);
+
     pool.getConnection(function (err, con) {
+        // check for errors in getting the connection
+        if (err) {
+            console.log(err);
+            return;
+        }
+
         if (url) {
             url = decodeURIComponent(url).toLowerCase();
 
@@ -140,18 +152,20 @@ var addUrl = function (request, response, url, vanity) {
 
 //This function adds attempts to add an URL to the database.
 var getTop100 = function (request, response) {
-    console.log("entrou");
     pool.getConnection(function (err, con) {
         con.query(cons.get_top100_query, function (err, rows) {
             if (err || rows.length == 0) {
                 response.send({ result: false, url: null });
             } else {
+                /*
                 response.send({
                     result: true,
                     short_url: rows[0].short_url,
                     full_url: full_url,
                     clicks: rows[0].access_count,
                 });
+                */
+                response.send(rows);
             }
         });
         con.release();

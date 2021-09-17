@@ -3,7 +3,7 @@ var logic = require("./logic");
 var route = function (app) {
     
     //Create short url and save to DB
-    app.get("/add", function (request, response) {
+    app.get("/addUrl", function (request, response) {
         var url = request.param("url");
         var vanity = request.param("vanity");
 
