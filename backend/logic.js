@@ -58,15 +58,11 @@ function generateHash(onSuccess, onError, retryCount, url, request, response, co
 
 //sends a error message back to the client
 function hashError(response, request, con, code) {
-    console.log("hashError");
-
     response.send(urlResult(null, false, code));
 }
 
 //Insert in the database the created short url
 function handleHash(hash, url, request, response, con) {
-    console.log("handleHash");
-
     con.query(
         cons.add_query
             .replace("{URL}", con.escape(url))
@@ -93,8 +89,6 @@ function urlResult(hash, result, statusCode) {
 
 //This method redirects to that URL if it exists
 var getUrl = function (request, response, short_url) {
-  console.log("getUrl");
-
     pool.getConnection(function (err, con) {
         // check for errors in getting the connection
         if (err) {
@@ -124,8 +118,6 @@ var getUrl = function (request, response, short_url) {
 
 //This function adds attempts to add an URL to the database.
 var addUrl = function (request, response, url, vanity) {
-  console.log("addUrl: url="+url);
-
     pool.getConnection(function (err, con) {
         // check for errors in getting the connection
         if (err) {
@@ -135,6 +127,11 @@ var addUrl = function (request, response, url, vanity) {
 
         if (url) {
             url = decodeURIComponent(url).toLowerCase();
+
+            // check to see if there is the protocol or just the domain
+            if (url.substring(0, 4) != "http") {
+                url = "http://" + url;
+            }
 
             req(url, function (err, res, body) {
                 if (res != undefined && res.statusCode == 200) {

@@ -2,7 +2,9 @@ var express = require("express");
 var app = express();
 var router = require("./router");
 var constants = require("./constants");
+var cors = require("cors");
 
+app.use(cors());
 app.use(express.bodyParser());
 app.use(express.urlencoded());
 app.use(express.json());

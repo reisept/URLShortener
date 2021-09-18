@@ -1,5 +1,5 @@
 exports.root_url_port = 9999;
-exports.root_url = "http://riscovirtual.com:" + this.root_url_port + "/";
+exports.root_url = "http://localhost:" + this.root_url_port + "/";
 exports.min_vanity_length = 4;
 exports.num_of_urls_per_hour = 50;
 
