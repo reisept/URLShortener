@@ -65,7 +65,7 @@ function hashError(response, request, con, code) {
 function handleHash(hash, url, request, response, con) {
     con.query(
         cons.add_query
-            .replace("{URL}", con.escape(url))
+            .replace("{FULL_URL}", con.escape(url))
             .replace("{SHORT_URL}", con.escape(hash))
             .replace("{IP}", con.escape(getIP(request))),
         function (err, rows) {
@@ -99,7 +99,7 @@ var getUrl = function (request, response, short_url) {
             var result = rows;
             if (!err && rows.length > 0) {
                 // save stats
-                con.query(cons.update_stats_query.replace("{SHORT_URL}", con.escape(short_url)), function (err, rows) {
+                con.query(cons.update_query.replace("{SHORT_URL}", con.escape(short_url)), function (err, rows) {
                     if (err) {
                         console.log(err);
                     }
@@ -133,11 +133,22 @@ var addUrl = function (request, response, url, vanity) {
                 url = "http://" + url;
             }
 
-            req(url, function (err, res, body) {
-                if (res != undefined && res.statusCode == 200) {
-                    generateHash(handleHash, hashError, 50, url, request, response, con, vanity);
+            con.query(cons.exists_query.replace("{FULL_URL}", con.escape(url)), function (err, rows) {
+                var result = rows;
+                if (!err && rows.length > 0) {
+                    // already exists return hash
+                    response.send(urlResult(result[0].short_url, true, 100));
                 } else {
-                    response.send(urlResult(null, false, 401));
+                    req(url, function (err, res, body) {
+                        if (res != undefined && res.statusCode == 200) {
+                            generateHash(handleHash, hashError, 50, url, request, response, con, vanity);
+                        } else {
+                            response.send(urlResult(null, false, 401));
+                        }
+                    });
+                }
+                if (err) {
+                    console.log(err);
                 }
             });
         } else {
@@ -154,14 +165,7 @@ var getTop100 = function (request, response) {
             if (err || rows.length == 0) {
                 response.send({ result: false, url: null });
             } else {
-                /*
-                response.send({
-                    result: true,
-                    short_url: rows[0].short_url,
-                    full_url: full_url,
-                    clicks: rows[0].access_count,
-                });
-                */
+                console.log(rows);
                 response.send(rows);
             }
         });
