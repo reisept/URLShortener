@@ -9,6 +9,6 @@ app.use(express.bodyParser());
 app.use(express.urlencoded());
 app.use(express.json());
 
-app.listen(constants.root_url_port);
+app.listen(constants.root_url_port, '0.0.0.0');
 console.log("Started listening at port " + constants.root_url_port);
 router.route(app);
