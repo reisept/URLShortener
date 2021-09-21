@@ -11,20 +11,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "jshint": "^2.13.1",
     "ansi-regex": ">=6.0.1",
     "base64-url": ">=2.0.0",
-    "morgan": ">=1.9.1",
-    "negotiator": ">=0.6.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "fresh": ">=0.5.2",
-    "mime": ">=1.4.1"
+    "jshint": "^2.13.1",
+    "mime": ">=1.4.1",
+    "morgan": ">=1.9.1",
+    "mysql": "^2.18.1",
+    "negotiator": ">=0.6.1"
   },
   "devDependencies": {
     "body-parser": "^1.7.0",
     "express": "3.x",
-    "mysql": "*",
     "nodemon": "^2.0.12",
     "request": "*"
   }
