@@ -10,5 +10,5 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 app.listen(process.env.PORT || constants.root_url_port);
-console.log("Started listening at port " + (rocess.env.PORT || constants.root_url_port));
+console.log("Started listening at port " + (process.env.PORT || constants.root_url_port));
 router.route(app);
