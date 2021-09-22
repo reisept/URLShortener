@@ -16,7 +16,7 @@ function App() {
             return;
         }
 
-        Axios.post("http://localhost:9999/addUrl", { url: url, vanity: "" })
+        Axios.post("https://reisept-url-shortener.herokuapp.com/addUrl", { url: url, vanity: "" })
             .then((response) => {
                 //console.log("post status code:", response.status);
                 //console.log("server status code:", response.data.statusCode);
@@ -31,7 +31,7 @@ function App() {
     };
 
     const getTop100 = () => {
-        Axios.get("http://localhost:9999/getTop100")
+        Axios.get("https://reisept-url-shortener.herokuapp.com/getTop100")
             .then((response) => {
                 //console.log("get status code:", response.status);
                 //console.log("server data:", response.data);

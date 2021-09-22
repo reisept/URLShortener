@@ -4,9 +4,9 @@ var cons = require("./constants");
 var crypto = require("crypto");
 
 var pool = mysql.createPool({
-    host: cons.host,
-    user: cons.user,
-    password: cons.password,
+    host: cons.db_host,
+    user: cons.db_user,
+    password: cons.db_password,
     database: cons.database,
 });
 

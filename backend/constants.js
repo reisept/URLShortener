@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 exports.root_url_port = 9999;
-exports.root_url = "http://riscovirtual.com:" + this.root_url_port + "/";
+exports.root_url = "https://reisept-url-shortener.herokuapp.com/"; //http://riscovirtual.com:" + this.root_url_port + "/";
 exports.min_vanity_length = 4;
 exports.num_of_urls_per_hour = 50;
 
@@ -24,7 +26,7 @@ exports.get_top100_query =
     "FROM short_urls " +
     "ORDER BY access_count DESC LIMIT 100";
 
-exports.host = "localhost";
-exports.user = "url_shortener";
-exports.password = "url_shortener";
-exports.database = "url_shortener";
+exports.db_host = process.env.DB_HOST || "localhost";
+exports.db_user = process.env.DB_USER || "url_shortener";;
+exports.db_password = process.env.DB_PASSWORD || "url_shortener";;
+exports.database = process.env.DATABASE || "url_shortener";
