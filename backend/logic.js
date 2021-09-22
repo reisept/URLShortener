@@ -3,12 +3,7 @@ var req = require("request");
 var cons = require("./constants");
 var crypto = require("crypto");
 
-var pool = mysql.createPool({
-    host: cons.db_host,
-    user: cons.db_user,
-    password: cons.db_password,
-    database: cons.database
-});
+var pool = mysql.createPool(process.env.CLEARDB_DATABASE_URL);
 
 function generateHash(onSuccess, onError, retryCount, url, request, response, con, vanity) {
     var hash = "";
