@@ -7,7 +7,7 @@ var pool = mysql.createPool({
     host: cons.db_host,
     user: cons.db_user,
     password: cons.db_password,
-    database: cons.database,
+    database: cons.database
 });
 
 function generateHash(onSuccess, onError, retryCount, url, request, response, con, vanity) {
